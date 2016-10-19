@@ -1,0 +1,20 @@
+class Solution {
+public:
+
+    void helper(int left,int right,string s,vector<string> &res,int n){
+        if(s.size()==2*n){
+            res.push_back(s);
+            return;
+        }
+        if(left<n)
+            helper(left+1,right,s+'(',res,n);
+        if(left>right)
+            helper(left,right+1,s+')',res,n);
+    }
+
+    vector<string> generateParenthesis(int n) {
+        vector<string> res;
+        helper(0,0,"",res,n);
+        return res;
+    }
+};

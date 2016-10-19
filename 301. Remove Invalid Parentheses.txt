@@ -1,0 +1,52 @@
+class Solution {
+public:
+    bool isValid(string s) {
+        int sum = 0;
+        for(char &c : s) {
+            if(c == '(') ++sum;
+            else if(c == ')') --sum;
+            if(sum < 0) return false;
+        }
+        return sum == 0;
+    }
+    
+    void dfs(string s,int pos,int count1,int count2,vector<string> &res){
+        if(count1==0 && count2==0 && isValid(s)){
+            res.push_back(s);
+        }else{
+            for(int i=pos;i<s.length();i++){
+                string temp=s;
+                if(count2==0 && count1>0 && temp[i]=='('){
+                    if(i==pos || temp[i]!=temp[i-1]){
+                        temp.erase(i,1);
+                        dfs(temp,i,count1-1,count2,res);
+                    }
+                }else if(count2>0 && temp[i]==')'){
+                    if(i==pos || temp[i]!=temp[i-1]){
+                        temp.erase(i,1);
+                        dfs(temp,i,count1,count2-1,res);
+                    }
+                }
+            }
+        }
+    }
+    
+    vector<string> removeInvalidParentheses(string s) {
+        vector<string> res;
+        int count1,count2;
+        count1=0;count2=0;
+        for(int i=0;i<s.length();i++){
+            if(s[i]=='(')
+                count1++;
+            if(count1==0){
+                if(s[i]==')')
+                    count2++;
+            }else{
+                if(s[i]==')')
+                    count1--;
+            }
+        }
+        dfs(s,0,count1,count2,res);
+        return res;
+    }
+};

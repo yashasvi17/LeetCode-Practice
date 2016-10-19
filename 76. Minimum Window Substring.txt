@@ -1,0 +1,31 @@
+class Solution {
+public:
+    string minWindow(string s, string t) {
+        int count[256];
+        for(int i=0;i<256;i++)
+            count[i]=0;
+        for(int i=0;i<t.length();i++)
+            count[t[i]]++;
+        int left,right,len;
+        left=right=0;len=t.length();
+        string min_string=s+'a';
+        for(;right<s.length();right++){
+            count[s[right]]--;
+            if(count[s[right]]>=0)
+                len--;
+            if(len==0){
+                while(count[s[left]]<0){
+                    count[s[left]]++;
+                    left++;
+                }
+                
+                if(right-left+1 < min_string.length() )
+                    min_string=s.substr(left,right-left+1);
+            }
+        }
+        if(min_string.length()>s.length())
+            return "";
+        else
+            return min_string;
+    }
+};

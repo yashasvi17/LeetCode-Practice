@@ -1,0 +1,98 @@
+class Solution {
+public:
+
+    string helper(int num){
+        unordered_map<int,string> mapping;
+        mapping[1]=" One";
+        mapping[2]=" Two";
+        mapping[3]=" Three";
+        mapping[4]=" Four";
+        mapping[5]=" Five";
+        mapping[6]=" Six";
+        mapping[7]=" Seven";
+        mapping[8]=" Eight";
+        mapping[9]=" Nine";
+        mapping[10]=" Ten";
+        mapping[11]=" Eleven";
+        mapping[12]=" Twelve";
+        mapping[13]=" Thirteen";
+        mapping[14]=" Fourteen";
+        mapping[15]=" Fifteen";
+        mapping[16]=" Sixteen";
+        mapping[17]=" Seventeen";
+        mapping[18]=" Eighteen";
+        mapping[19]=" Nineteen";
+        mapping[20]=" Twenty";
+        mapping[30]=" Thirty";
+        mapping[40]=" Forty";
+        mapping[50]=" Fifty";
+        mapping[60]=" Sixty";
+        mapping[70]=" Seventy";
+        mapping[80]=" Eighty";
+        mapping[90]=" Ninety";
+        mapping[100]=" One Hundred";
+        mapping[200]=" Two Hundred";
+        mapping[300]=" Three Hundred";
+        mapping[400]=" Four Hundred";
+        mapping[500]=" Five Hundred";
+        mapping[600]=" Six Hundred";
+        mapping[700]=" Seven Hundred";
+        mapping[800]=" Eight Hundred";
+        mapping[900]=" Nine Hundred";
+        string word="";
+        int place=10;
+        for(int i=0;i<3;i++){
+            if(place==10 && num%100<20){
+                int temp=num%100;
+                if(temp<20){
+                    word=mapping[temp]+word;
+                    //word=" "+word;
+                    num=num-temp;
+                    place*=100;
+                }
+            }else{
+                int temp=num%place;
+                place*=10;
+                word=mapping[temp]+word;
+                //word=" "+word;
+                num=num-temp;
+            }
+        }
+        //word.erase(word.begin());
+        //cout<<word<<endl;
+        return word;
+    }
+  
+    string numberToWords(int num) {
+        if(num==0)
+            return "Zero";
+        int temp,count;
+        count=0;
+        string word;
+        while(num){
+            temp=num%1000;
+            //cout<<temp<<endl;
+            num=num/1000;
+            count++;
+            string prefix;
+            if(temp!=0){
+                prefix=helper(temp);
+            }
+            if(count==2 && prefix!="")
+                prefix+=" Thousand";
+            else if(count==3 && prefix!="")
+                prefix+=" Million";
+            else if(count==4 && prefix!="")
+                prefix+=" Billion";
+            //cout<<prefix<<endl;
+            word=prefix+word;
+        }
+        while(word[0]==' '){
+            word.erase(word.begin());
+        }
+        while(word[word.size()-1]==' '){
+            word.erase(word.begin()+word.size()-1);
+        }
+        return word;
+    }
+};

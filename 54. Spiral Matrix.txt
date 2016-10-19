@@ -1,0 +1,32 @@
+class Solution {
+public:
+   vector<int> spiralOrder(vector<vector<int>>& matrix) {  //beat 17.8%
+        vector<int>res;
+        if (matrix.empty()) return {};
+        int m = matrix.size(),n=matrix[0].size();
+        int x,y,muti = m*n;
+        for(int r=0;;r++ )
+        {
+            x=r;
+            for(y=r;y<n-r;y++)
+                res.push_back(matrix[x][y]);
+            if(res.size()==muti)break;
+
+            y=n-1-r;
+            for(x=r+1;x<m-r;x++)
+                res.push_back(matrix[x][y]);
+            if(res.size()==muti)break;
+
+            x=m-1-r;
+            for(y=n-2-r;y>=r;y--)
+                res.push_back(matrix[x][y]);
+            if(res.size()==muti)break;
+
+            y=r;
+            for(x=m-2-r;x>r;x--)
+                res.push_back(matrix[x][y]);
+            if(res.size()==muti)break;
+        }
+        return res;
+    }
+};

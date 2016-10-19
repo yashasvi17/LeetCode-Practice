@@ -1,0 +1,23 @@
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        int left,right,maxLen,start;
+        start=0;maxLen=0;
+        for(int i=0;i<s.length();){
+            if(s.length()-i<=maxLen/2)
+                break;
+            left=i;right=i;
+            while(right<s.length()-1 && s[right]==s[right+1])
+                right++;
+            i=right+1;
+            while(right<s.length()-1 && left>0 && s[right+1]==s[left-1]){
+                right++;left--;
+            }
+            if(right-left+1>maxLen){
+                maxLen=right-left+1;
+                start=left;
+            }
+        }
+        return s.substr(start,maxLen);
+    }
+};

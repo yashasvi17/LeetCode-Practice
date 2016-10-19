@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int reverse(int x) {
+        int rev,rev_digit;
+        rev=0;
+        while(x){
+            rev_digit=rev;
+            rev=rev*10+x%10;
+            x=x/10;
+        }
+        if(rev/10==rev_digit)
+            return rev;
+        return 0;
+    }
+};

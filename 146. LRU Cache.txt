@@ -1,0 +1,41 @@
+class LRUCache{
+    int capacity;
+    int time;
+    unordered_map<int, int> data;  // key, value
+    unordered_map<int, int> order;  // key, time
+    priority_queue <pair<int, int>> lru;  // pair<time, key>
+    
+public:
+    LRUCache(int capacity) {
+        this->capacity = capacity;
+        time = 0;
+    }
+    
+    int get(int key) {
+        if (data.count(key)) {
+            order[key] = -time;
+            lru.emplace(-time, key);  // push -time for min heap
+            time ++;
+            return data[key];
+        }
+        else return -1;
+    }
+    
+    void set(int key, int value) {
+        if (!data.count(key) and data.size() == capacity) {  // capacity reached
+            while (true) {  // pop outdated record in heap
+                auto htop = lru.top();
+                lru.pop();
+                if (order[htop.second] == htop.first) {
+                    data.erase(htop.second);
+                    order.erase(htop.second);
+                    break;
+                }
+            }
+        }
+        data[key] = value;
+        order[key] = -time;
+        lru.emplace(-time, key);
+        time ++;
+    }
+};

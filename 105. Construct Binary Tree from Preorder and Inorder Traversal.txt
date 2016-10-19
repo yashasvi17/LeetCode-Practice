@@ -1,0 +1,28 @@
+class Solution {
+private: 
+    unordered_map<int,int> inmap;
+public:
+    TreeNode* dfs(vector<int>& inorder, int ileft, int iright, vector<int>& preorder, int pleft, int pright)
+    {
+         if(ileft > iright) return NULL;
+         int value = preorder[pleft];
+         int iroot = inmap[value];
+    
+         TreeNode* root = new TreeNode(value);
+         if (ileft == iright) return root;
+    
+         int len = iroot - ileft;
+    
+         root->left = dfs(inorder, ileft, iroot-1, preorder, pleft + 1, pleft + len);
+         root->right= dfs(inorder, iroot+1, iright, preorder, pleft+len+1, pright);
+         return root;    
+    }
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+         int n = inorder.size();
+         int m = preorder.size();
+    
+         for(int i = 0; i < n;i++)
+              inmap[inorder[i]] = i;
+         return dfs(inorder, 0, n-1, preorder, 0, m-1);   
+     }
+};

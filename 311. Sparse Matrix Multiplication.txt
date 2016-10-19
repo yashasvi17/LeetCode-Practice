@@ -1,0 +1,41 @@
+class Solution {
+public:
+    vector<vector<int>> multiply(vector<vector<int>>& A, vector<vector<int>>& B) {
+        int n,m,p;
+        n=A.size();
+        m=A[0].size();
+        p=B[0].size();
+        set<int> s;
+        vector<vector<int>> C(n,vector<int> (p,0));
+        for(int i=0;i<n;i++){
+            int check=0;
+            for(int j=0;j<m;j++){
+                check|=A[i][j];
+            }
+            if(!check)
+                s.insert(i+1);
+        }
+        
+        for(int i=0;i<p;i++){
+            int check=0;
+            for(int j=0;j<m;j++){
+                check|=B[j][i];
+            }
+            if(!check)
+                s.insert(-i+1);
+        }
+        
+        for(int i=0;i<n;i++){
+            if(s.find(i+1)!=s.end())
+                continue;
+            for(int j=0;j<p;j++){
+                if(s.find(-(j+1))!=s.end())
+                    continue;
+                for(int k=0;k<m;k++){
+                    C[i][j]+=A[i][k]*B[k][j];
+                }
+            }
+        }
+        return C;
+    }
+};

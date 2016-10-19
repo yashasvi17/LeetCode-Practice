@@ -1,0 +1,30 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+private:
+    vector<int> inorder;
+public:
+    void inorderTraversal(TreeNode *root){
+        if(!root)
+            return ;
+        inorderTraversal(root->left);
+        inorder.push_back(root->val);
+        inorderTraversal(root->right);
+    }
+
+    bool isValidBST(TreeNode* root) {
+        inorderTraversal(root);
+        for(int i=1;i<inorder.size();i++){
+            if(inorder[i]<=inorder[i-1])
+                return false;
+        }
+        return true;
+    }
+};

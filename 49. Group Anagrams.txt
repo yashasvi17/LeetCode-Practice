@@ -1,0 +1,28 @@
+class Solution {
+public:
+    
+    vector<int> anagramCode(string s){
+        vector<int> code(26,0);
+        for(int i=0;i<s.length();i++){
+            code[s[i]-'a']++;
+        }
+        return code;
+    }
+    
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        vector<vector<string>> anagramGroup;
+        if(strs.size()==0)
+            return anagramGroup;
+        
+        map< vector<int>, vector<string>> anagramMap;
+        
+        for(int i=0;i<strs.size();i++){
+            anagramMap[anagramCode(strs[i])].push_back(strs[i]);
+        }
+        
+        for(auto &itr : anagramMap){
+            anagramGroup.push_back(itr.second);
+        }
+        return anagramGroup;
+    }
+};

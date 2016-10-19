@@ -1,0 +1,26 @@
+class Solution {
+public:
+    bool wordBreak(string s, unordered_set<string> &dict) {
+        if (s.size() == 0) return true;
+        int size = s.size();
+        int maxlen = getMaxLength(dict);
+        vector<bool> dp(size + 1, false);
+        dp[0] = true;
+        for (int i = 1; i <= size; i++) {
+            for (int j = i; j >= 1 && j >= (i - maxlen); j--) {
+                if (dp[j-1] == true && (dict.find(s.substr(j-1, i-j+1)) != dict.end())) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        return dp[size];
+    }
+    int getMaxLength(unordered_set<string> &dict) {
+        int maxLength = 0;
+        for (unordered_set<string>::iterator it = dict.begin(); it != dict.end(); ++it) { 
+            maxLength = maxLength > (*it).length() ? maxLength : (*it).length();
+        }
+        return maxLength;
+    }
+};

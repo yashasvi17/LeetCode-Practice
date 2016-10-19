@@ -1,0 +1,19 @@
+class Solution {
+private:
+    unordered_map<int,int> dict;
+public:
+        vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> indices;
+        int counter=0;
+        for(int i=0;i<nums.size();i++)
+            dict[nums[i]]=counter++;
+        for(int i=0;i<nums.size();i++){
+            int diff=target-nums[i];
+            if(dict.find(diff)!=dict.end() && i!=dict[diff]){
+                indices.push_back(i);
+                indices.push_back(dict[diff]);
+                return indices;
+            }
+        }
+    }
+};

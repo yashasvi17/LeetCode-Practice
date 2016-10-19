@@ -1,0 +1,53 @@
+class Solution {
+public:
+
+    void helper(string digits,int pos,vector<string> &res,string code){
+        //cout<<code<<endl;
+        if( pos > digits.length()-1 ){
+            res.push_back(code);
+            //cout<<code<<endl;
+            return ;
+        }
+        if(digits[pos]=='2'){
+            helper(digits,pos+1,res,code+"a");
+            helper(digits,pos+1,res,code+"b");
+            helper(digits,pos+1,res,code+"c");
+        }else if(digits[pos]=='3'){
+            helper(digits,pos+1,res,code+"d");
+            helper(digits,pos+1,res,code+"e");
+            helper(digits,pos+1,res,code+"f");
+        }else if(digits[pos]=='4'){
+            helper(digits,pos+1,res,code+"g");
+            helper(digits,pos+1,res,code+"h");
+            helper(digits,pos+1,res,code+"i");
+        }else if(digits[pos]=='5'){
+            helper(digits,pos+1,res,code+"j");
+            helper(digits,pos+1,res,code+"k");
+            helper(digits,pos+1,res,code+"l");
+        }else if(digits[pos]=='6'){
+            helper(digits,pos+1,res,code+"m");
+            helper(digits,pos+1,res,code+"n");
+            helper(digits,pos+1,res,code+"o");
+        }else if(digits[pos]=='7'){
+            helper(digits,pos+1,res,code+"p");
+            helper(digits,pos+1,res,code+"q");
+            helper(digits,pos+1,res,code+"r");
+            helper(digits,pos+1,res,code+"s");
+        }else if(digits[pos]=='8'){
+            helper(digits,pos+1,res,code+"t");
+            helper(digits,pos+1,res,code+"u");
+            helper(digits,pos+1,res,code+"v");
+        }else if(digits[pos]=='9'){
+            helper(digits,pos+1,res,code+"w");
+            helper(digits,pos+1,res,code+"x");
+            helper(digits,pos+1,res,code+"y");
+            helper(digits,pos+1,res,code+"z");
+        }
+    }
+
+    vector<string> letterCombinations(string digits) {
+        vector<string> res;
+        helper(digits,0,res,"");
+        return res;        
+    }
+};

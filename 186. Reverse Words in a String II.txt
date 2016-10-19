@@ -1,0 +1,39 @@
+class Solution {
+public:
+
+void reverseWords(string &s) {
+    int front,back;
+    front=0;back=s.length()-1;
+    while(front<back){
+        char temp;
+        temp=s[front];
+        s[front]=s[back];
+        s[back]=temp;
+        front++;
+        back--;
+    }
+    //cout<<s<<endl;
+    front=0;back=0;
+    while(back<s.length()){
+    	while(s[back]!=' ' && back!=s.length()){
+    		back++;
+    	}
+    	int pos=back-1;
+    	//cout<<"front:"<<front<< " "<<back<<endl;
+    	while(front<pos){
+        	char temp;
+        	temp=s[front];
+        	s[front]=s[pos];
+        	s[pos]=temp;
+        	front++;
+        	pos--;  
+        	//cout<<front<<" "<<pos<<endl;
+    	}
+    	back++;
+    	front=back;
+    }
+    //cout<<s<<endl;
+    //return s;
+}
+
+};

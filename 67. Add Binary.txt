@@ -1,0 +1,40 @@
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        string sum="";
+        int carry=0;
+        int i,j;
+        i=a.size()-1;j=b.size()-1;
+        while(i>=0 && j>=0){
+            int c=(a[i]-'0')+(b[j]-'0')+carry;
+            i--;j--;
+            carry=c/2;
+            c=c%2;
+            string temp;
+            temp='0'+c;
+            //cout<<temp<<endl;
+            sum=temp+sum;
+        }
+        while(i>=0){
+            int c=(a[i]-'0')+carry;
+            i--;
+            carry=c/2;
+            c=c%2;
+            string temp;
+            temp='0'+c;
+            sum=temp+sum;
+        }
+        while(j>=0){
+            int c=(b[j]-'0')+carry;
+            j--;
+            carry=c/2;
+            c=c%2;
+            string temp;
+            temp='0'+c;
+            sum=temp+sum;
+        }
+        if(carry)
+            sum="1"+sum;
+        return sum;
+    }
+};

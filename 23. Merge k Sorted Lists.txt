@@ -1,0 +1,65 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+ 
+struct ListNode* mergeTwoLists(struct ListNode *l1,struct ListNode *l2){
+    if(!l1)
+        return l2;
+    if(!l2)
+        return l1;
+    struct ListNode *head,*newList;
+    if(l1->val<=l2->val){
+        head=l1;
+        newList=head;
+        l1=l1->next;
+    }else{
+        head=l2;
+        newList=head;
+        l2=l2->next;
+    }
+    while(l1 || l2){
+        if(l1 && l2){
+            if(l1->val<=l2->val){
+                newList->next=l1;
+                newList=newList->next;
+                l1=l1->next;
+            }else{
+                newList->next=l2;
+                newList=newList->next;
+                l2=l2->next;
+            }    
+        }else if(l1){
+            newList->next=l1;
+            newList=newList->next;
+            l1=l1->next;
+        }else if(l2){
+            newList->next=l2;
+            newList=newList->next;
+            l2=l2->next;
+        }
+    }
+    return head;
+} 
+ 
+ 
+struct ListNode* mergeKLists(struct ListNode** lists, int listsSize) {
+    if(listsSize==0)
+        return NULL;
+    while(listsSize!=1){
+        int marker=0;
+        for(int i=0;i<listsSize;i=i+2){
+            if(i+1<listsSize){
+                lists[marker]=mergeTwoLists(lists[i],lists[i+1]);
+                marker++;
+            }else{
+                lists[marker++]=lists[i];
+            }
+        }
+        listsSize=marker;
+    }
+    return lists[0];
+}

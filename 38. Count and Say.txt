@@ -1,0 +1,29 @@
+class Solution {
+public:
+    string generateNext(string s){
+        string next="";
+        int count=1;
+        for(int i=1;i<s.length();i++){
+            if(s[i]==s[i-1]){
+                count++;
+            }else{
+                next+=to_string(count);
+                next+=s[i-1];
+                count=1;
+            }
+        }
+        next+=to_string(count);
+        next+=s[s.length()-1];
+        return next;
+    }
+
+    string countAndSay(int n) {
+        string start="1";
+        n--;
+        while(n--){
+            start=generateNext(start);
+            cout<<start<<endl;
+        }
+        return start;
+    }
+};

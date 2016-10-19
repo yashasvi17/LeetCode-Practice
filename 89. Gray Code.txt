@@ -1,0 +1,20 @@
+class Solution {
+public:
+    void helper(bitset<32> &num,int pos,vector<int> &res){
+        if(pos==0)
+            res.push_back(num.to_ulong());
+        else{
+            helper(num,pos-1,res);
+            num.flip(pos-1);
+            helper(num,pos-1,res);
+        }
+    }
+
+    vector<int> grayCode(int n) {
+        vector<int> res;
+        bitset<32> num;
+        cout<<num[0]<<endl;
+        helper(num,n,res);
+        return res;
+    }
+};

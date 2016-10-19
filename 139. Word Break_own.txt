@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool checker(string s, int start,int curr, unordered_set<string>& wordDict){
+        if(curr==s.length())
+            return false;
+        if(curr==s.length()-1){
+            if(wordDict.find(s.substr(start,curr-start+1))!=wordDict.end())
+                return true;
+        }
+        if(wordDict.find(s.substr(start,curr-start+1))!=wordDict.end()){
+            return ( checker(s,curr+1,curr+1,wordDict)|| checker(s,start,curr+1,wordDict));
+        }else{
+            return checker(s,start,curr+1,wordDict);
+        }
+        return false;
+    }
+    
+    bool wordBreak(string s, unordered_set<string>& wordDict) {
+        if(wordDict.size()==0)
+            return false;
+        return checker(s,0,0,wordDict);
+    }
+};

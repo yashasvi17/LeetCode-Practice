@@ -1,0 +1,18 @@
+class Solution {
+private:
+    vector<int> nums;
+public:
+    void helper(int curr,int n){
+        if(curr<=n){
+            nums.push_back(curr);
+            helper(curr*10,n);
+            if(curr%10<9)
+                helper(curr+1,n);
+        }
+    }
+
+    vector<int> lexicalOrder(int n) {
+        helper(1,n);
+        return nums;
+    }
+};

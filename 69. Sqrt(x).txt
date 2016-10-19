@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int mySqrt(int x) {
+        long l,h;
+        l=0;h=x;
+        while(l<=h){
+            long m=l+(h-l)/2;
+            long t=m*m;
+            if(t==x)
+                return m;
+            if(t<x){
+                l=m+1;
+            }else{
+                h=m-1;
+            }
+        }
+        if(l*l>x)
+            return l-1;
+        else
+            return l;
+    }
+};

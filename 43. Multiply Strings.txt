@@ -1,0 +1,18 @@
+class Solution {
+public:
+    string multiply(string num1, string num2) {
+        string ans = string(num1.length() + num2.length(), '0');
+        
+        for (int i = num1.length() - 1; i >= 0; i--) {
+            for (int j = num2.length() - 1; j >= 0; j--) {
+                int tempInt = (num1[i] - '0') * (num2[j] - '0') + (ans[i + j + 1] - '0');
+                ans[i + j + 1] = '0' + tempInt % 10;
+                ans[i + j] += tempInt / 10;
+            }
+        }
+        
+        size_t found = ans.find_first_not_of('0');
+        if (found == string::npos) { return "0"; }
+        return ans.substr(found);
+}
+};

@@ -1,0 +1,29 @@
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+        int col=matrix[0].size();
+        int row=matrix.size();
+        if(row<2 || col<2)
+            return;
+            
+        //flip diagonally
+        for(int i=0;i<row;i++){
+            for(int j=i;j<col;j++){
+                int temp=matrix[i][j];
+                matrix[i][j]=matrix[j][i];
+                matrix[j][i]=temp;
+            }
+        }
+        
+        //flip horizontally
+        for(int i=0;i<row;i++){
+            int start=0;int end=col-1;
+            while(start<end){
+                int temp=matrix[i][start];
+                matrix[i][start]=matrix[i][end];
+                matrix[i][end]=temp;
+                start++;end--;
+            }
+        }
+    }
+};

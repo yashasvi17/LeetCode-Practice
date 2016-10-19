@@ -1,0 +1,51 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int leftCount,rightCount;
+    
+    void findBreadth(TreeNode *root,int pos,int &leftCount,int &rightCount){
+        if(pos<leftCount)
+            leftCount=pos;
+        if(pos>rightCount)
+            rightCount=pos;
+        if(root->left)
+            findBreadth(root->left,pos-1,leftCount,rightCount);
+        if(root->right)
+            findBreadth(root->right,pos+1,leftCount,rightCount);
+    }
+    
+    void preorder(TreeNode *root,int verticalPos,vector<vector<int>> &res){
+        if(!root)
+            return;
+        res[verticalPos+leftCount].push_back(root->val);
+        if(root->left){
+            preorder(root->left,verticalPos-1,res);
+        }
+        if(root->right){
+            preorder(root->right,verticalPos+1,res);
+        }
+    }
+
+    vector<vector<int>> verticalOrder(TreeNode* root) {
+        //int leftCount,rightCount;
+        if(!root){
+            vector<vector<int>> res;
+            return res;
+        }
+        leftCount=rightCount=0;
+        findBreadth(root,0,leftCount,rightCount);
+        vector<vector<int>> res(rightCount-leftCount+1);
+        leftCount=-leftCount;
+        cout<<leftCount<<" "<<rightCount<<endl;
+        preorder(root,0,res);
+        return res;
+    }
+};

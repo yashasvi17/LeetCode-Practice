@@ -1,0 +1,35 @@
+class Solution {
+private:
+    int partition (vector<int>& nums, int left, int right) {
+        swap(nums[left], nums[left + random() % (right - left + 1)]);   // randomly choose a pivot and put it on left position
+        int pivot = nums[left], slow = left + 1, fast = left + 1;       // use two pointers to partition: slow and fast
+        
+        while (fast <= right) {
+            if (pivot < nums[fast]) {
+                swap(nums[slow++], nums[fast]);
+            }
+            fast++;
+        }
+        
+        swap(nums[left], nums[--slow]);                                 // position pivot 
+        return slow;                                                    // return pivot position
+    }
+    
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        int l = 0, r = nums.size() - 1;
+        k--;
+        
+        while (l <= r) {                                
+            int n = partition(nums, l, r);                              
+            
+            if (n == k) { return nums[n]; }
+            if (n < k) { 
+                l = n + 1; 
+            } else {
+                r = n - 1;
+            }
+        }
+        return -1;
+    }
+};
